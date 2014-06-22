@@ -17,7 +17,7 @@ class Crystal < Formula
   end
 
   depends_on "llvm33" => %w(with-clang all-targets)
-  depends_on "bdw-gc74"
+  depends_on "bdw-gc"
   depends_on "libtask"
 
   def install
