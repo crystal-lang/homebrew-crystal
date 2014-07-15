@@ -5,7 +5,7 @@ class Crystal < Formula
 
   stable do
     url 'http://crystal-lang.s3.amazonaws.com/crystal-darwin-0.3.3.tar.gz'
-    sha1 'eb46a61ad2dfcb2235eaab8cb1f08524965b0824'
+    sha1 'b430a3d75d5ec1c2eed0ef19b9b54f87c9fef88e'
   end
 
   head do
