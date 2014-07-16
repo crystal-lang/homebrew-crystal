@@ -16,9 +16,9 @@ class Crystal < Formula
     end
   end
 
-  depends_on "llvm33" => %w(with-clang all-targets)
+  depends_on "llvm33" => [:recommended, 'with-clang', 'all-targets']
   depends_on "bdw-gc"
-  depends_on "libtask"
+  depends_on "libpcl" => :recommended
 
   def install
     if build.head?
