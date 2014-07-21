@@ -4,8 +4,8 @@ class Crystal < Formula
   homepage 'http://crystal-lang.org/'
 
   stable do
-    url 'http://crystal-lang.s3.amazonaws.com/crystal-darwin-0.3.3.tar.gz'
-    sha1 'b430a3d75d5ec1c2eed0ef19b9b54f87c9fef88e'
+    url 'http://crystal-lang.s3.amazonaws.com/crystal-darwin-0.3.4.tar.gz'
+    sha1 'e5023afc322eef53e1ebeccff5cfea0705e50f13'
   end
 
   head do
