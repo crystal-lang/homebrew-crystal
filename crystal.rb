@@ -20,6 +20,8 @@ class Crystal < Formula
   depends_on "bdw-gc"
   depends_on "libpcl" => :recommended
 
+  patch :DATA
+
   def install
     if build.head?
       resource('latest').stage do
@@ -42,3 +44,15 @@ class Crystal < Formula
     resource('latest').clear_cache if build.head?
   end
 end
+
+__END__
+diff --git a/bin/crystal b/bin/crystal
+index a3f6448..454983c 100755
+--- a/bin/crystal
++++ b/bin/crystal
+@@ -1,4 +1,4 @@
+ #!/usr/bin/env bash
+ SCRIPT_ROOT="$(dirname $(readlink $0 || echo $0))"
+-export CRYSTAL_PATH="$SCRIPT_ROOT/../src:$SCRIPT_ROOT/../libs:libs"
++export CRYSTAL_PATH="src:libs:$SCRIPT_ROOT/../src:$SCRIPT_ROOT/../libs"
+ "$SCRIPT_ROOT/crystal-exe" "$@"
