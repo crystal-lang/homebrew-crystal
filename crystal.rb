@@ -34,7 +34,7 @@ class Crystal < Formula
       s.gsub! /INSTALL_DIR=.+/, script_root
     end
 
-    if build.with?('llvm')
+    if build.with?('llvm') || Formula["llvm"].installed?
       inreplace('bin/crystal') do |s|
         if s =~ /export PATH="(.*)"/
           llvm_path = Formula["llvm"].opt_prefix
