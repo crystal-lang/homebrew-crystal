@@ -2,11 +2,11 @@ require 'formula'
 
 class Crystal < Formula
   homepage 'http://crystal-lang.org/'
-  version '0.5.1'
+  version '0.5.2'
 
   stable do
-    url 'https://github.com/manastech/crystal/releases/download/0.5.1/crystal-0.5.1-1-darwin-x86_64.tar.gz'
-    sha1 'f35b08841938a50616b769fcee9ca3dfa62fbc01'
+    url 'https://github.com/manastech/crystal/releases/download/0.5.2/crystal-0.5.2-1-darwin-x86_64.tar.gz'
+    sha1 'f29609a18be8a4ab9799ceadc4521681d62702e4'
   end
 
   # head do
