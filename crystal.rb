@@ -19,6 +19,7 @@ class Crystal < Formula
 
   depends_on "llvm" => :optional
   depends_on "libpcl" => :recommended
+  depends_on "pkg-config"
 
   def install
     # if build.head?
