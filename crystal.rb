@@ -6,7 +6,7 @@ class Crystal < Formula
 
   stable do
     url 'https://github.com/manastech/crystal/releases/download/0.5.6/crystal-0.5.6-1-darwin-x86_64.tar.gz'
-    sha1 '216d181b231a9e361f54ad9db57d49f6fbd5ca3b'
+    sha1 'd428f511621dead49a1996891bb0a8aaf3d5249f'
   end
 
   # head do
