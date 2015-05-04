@@ -31,6 +31,7 @@ class Crystal < Formula
     depends_on "libyaml"
     depends_on "libevent"
     depends_on "gmp"
+    depends_on "boehmgc"
   end
 
   def install
