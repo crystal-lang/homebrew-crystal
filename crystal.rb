@@ -22,6 +22,7 @@ class Crystal < Formula
 
   depends_on "llvm" => :optional
   depends_on "libpcl" => :recommended
+  depends_on "openssl"
   depends_on "pkg-config"
 
   def install
@@ -34,8 +35,9 @@ class Crystal < Formula
     # end
 
     script_root = %Q(INSTALL_DIR="#{prefix}")
+    openssl_libdir = %Q(LIBRARY_PATH="#{Formula['openssl'].opt_lib}")
     inreplace('bin/crystal') do |s|
-      s.gsub! /INSTALL_DIR=.+/, script_root
+      s.gsub! /INSTALL_DIR=.+/, [script_root, openssl_libdir].join("\n")
     end
 
     if build.with?('llvm') || Formula["llvm"].installed?
