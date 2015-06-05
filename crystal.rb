@@ -20,9 +20,19 @@ class Crystal < Formula
   #   end
   # end
 
-  depends_on "llvm" => :optional
+  depends_on "llvm35-patched" => :optional
   depends_on "libpcl" => :recommended
   depends_on "pkg-config"
+
+  option "with-everything", "Install everything needed to do compiler development"
+
+  if build.with?('everything')
+    depends_on "llvm35-patched"
+    depends_on "libyaml"
+    depends_on "libevent"
+    depends_on "gmp"
+    depends_on "boehmgc"
+  end
 
   def install
     # if build.head?
@@ -38,10 +48,10 @@ class Crystal < Formula
       s.gsub! /INSTALL_DIR=.+/, script_root
     end
 
-    if build.with?('llvm') || Formula["llvm"].installed?
+    if build.with?('llvm35-patched') || Formula["llvm35-patched"].installed?
       inreplace('bin/crystal') do |s|
         if s =~ /export PATH="(.*)"/
-          llvm_path = Formula["llvm"].opt_prefix
+          llvm_path = Formula["llvm35-patched"].opt_prefix
           s.gsub! /export PATH="(.*)"/, %(export PATH="#{llvm_path}/bin:#{$1}")
         end
       end
