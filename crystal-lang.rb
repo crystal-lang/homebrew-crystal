@@ -3,9 +3,10 @@ require 'formula'
 CRYSTAL_VERSION = "0.7.3"
 CRYSTAL_SHA = "4d6df5952863ea98b2bb001b660431e0e19c1230"
 
-class Crystal < Formula
+class CrystalLang < Formula
   homepage 'http://crystal-lang.org/'
   version CRYSTAL_VERSION
+  conflicts_with 'crystal'
 
   stable do
     url "https://github.com/manastech/crystal/releases/download/#{CRYSTAL_VERSION}/crystal-#{CRYSTAL_VERSION}-1-darwin-x86_64.tar.gz"
