@@ -1,7 +1,7 @@
 require 'formula'
 
-CRYSTAL_VERSION = "0.7.5"
-CRYSTAL_SHA = "442ef53443cab7806283d6dc27526e64d7248db2"
+CRYSTAL_VERSION = "0.7.6"
+CRYSTAL_SHA = "e464809e610603f262fc1c49710fc7b2832a87f2"
 
 class CrystalLang < Formula
   homepage 'http://crystal-lang.org/'
@@ -50,8 +50,7 @@ class CrystalLang < Formula
 
     prefix.install Dir["*"]
 
-    # Enable after 0.7.5
-    # zsh_completion.install "etc/completion.zsh" => "_crystal"
+    zsh_completion.install "etc/completion.zsh" => "_crystal"
   end
 
   def post_install
