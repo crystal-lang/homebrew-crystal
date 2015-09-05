@@ -50,7 +50,7 @@ class CrystalLang < Formula
 
     prefix.install Dir["*"]
 
-    zsh_completion.install "etc/completion.zsh" => "_crystal"
+    # zsh_completion.install "etc/completion.zsh" => "_crystal"
   end
 
   def post_install
