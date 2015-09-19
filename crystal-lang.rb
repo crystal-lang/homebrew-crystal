@@ -1,7 +1,7 @@
 require 'formula'
 
-CRYSTAL_VERSION = "0.7.7"
-CRYSTAL_SHA = "71cfa0c6cd862a6df3bd14e40f68d0198688c6ce"
+CRYSTAL_VERSION = "0.8.0"
+CRYSTAL_SHA = "1fdda6faae7308476c2ad3b9bfc9ee15af8348ee"
 
 class CrystalLang < Formula
   homepage 'http://crystal-lang.org/'
