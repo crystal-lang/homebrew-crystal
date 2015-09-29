@@ -1,7 +1,7 @@
 require 'formula'
 
 CRYSTAL_VERSION = "0.8.0"
-CRYSTAL_SHA = "1fdda6faae7308476c2ad3b9bfc9ee15af8348ee"
+CRYSTAL_SHA = "5a16826145a846da3548e875cf104bdfc04c35cd6628cf66487de1bfbe9c5faf"
 
 class CrystalLang < Formula
   homepage 'http://crystal-lang.org/'
@@ -10,7 +10,7 @@ class CrystalLang < Formula
 
   stable do
     url "https://github.com/manastech/crystal/releases/download/#{CRYSTAL_VERSION}/crystal-#{CRYSTAL_VERSION}-1-darwin-x86_64.tar.gz"
-    sha1 CRYSTAL_SHA
+    sha256 CRYSTAL_SHA
   end
 
   # head do
