@@ -1,59 +1,61 @@
-require 'formula'
-
-CRYSTAL_VERSION = "0.8.0"
-CRYSTAL_SHA = "1fdda6faae7308476c2ad3b9bfc9ee15af8348ee"
-
 class CrystalLang < Formula
-  homepage 'http://crystal-lang.org/'
-  version CRYSTAL_VERSION
-  conflicts_with 'crystal'
+  homepage "http://crystal-lang.org/"
+  url "https://github.com/manastech/crystal/archive/0.8.0.tar.gz"
+  sha256 "986a000bb2eded22e446fd55c543062770ec4000e28791f0b07f63fcee37b245"
+  head "https://github.com/manastech/crystal.git"
 
-  stable do
-    url "https://github.com/manastech/crystal/releases/download/#{CRYSTAL_VERSION}/crystal-#{CRYSTAL_VERSION}-1-darwin-x86_64.tar.gz"
-    sha1 CRYSTAL_SHA
+  resource "boot" do
+    url "https://github.com/manastech/crystal/releases/download/0.8.0/crystal-0.8.0-1-darwin-x86_64.tar.gz"
+    sha256 "5a16826145a846da3548e875cf104bdfc04c35cd6628cf66487de1bfbe9c5faf"
   end
 
-  # head do
-  #   url 'http://github.com/manastech/crystal.git'
+  resource "shards" do
+    url "https://github.com/ysbaddaden/shards/archive/v0.5.1.tar.gz"
+    sha256 "95916792766e42e3b005b144190c3f88d5cb8bcbaaddeb8fa8ced8bac1ef424d"
+  end
 
-  #   resource 'latest' do
-  #     url 'http://crystal-lang.s3.amazonaws.com/crystal-darwin-latest.tar.gz'
-  #   end
-  # end
+  depends_on "libevent"
+  depends_on "libpcl"
+  depends_on "bdw-gc"
+  depends_on "llvm" => :build
 
-  depends_on "llvm" => :optional
-  depends_on "libpcl" => :recommended
-  depends_on "pkg-config"
+  option "without-release", "Do not build the compiler in release mode"
+  option "without-shards", "Do not include `shards` dependency manager"
+
+  depends_on "libyaml" if build.with?("shards")
 
   def install
-    # if build.head?
-    #   resource('latest').stage do
-    #     (prefix/"deps").install "bin/crystal-exe" => "crystal"
-    #   end
+    (buildpath/"boot").install resource("boot")
 
-    #   script_root = %Q(INSTALL_DIR="#{prefix}")
-    # end
-
-    script_root = %Q(INSTALL_DIR="#{prefix}")
-    inreplace('bin/crystal') do |s|
-      s.gsub! /INSTALL_DIR=.+/, script_root
+    if build.head?
+      ENV["CRYSTAL_CONFIG_VERSION"] = `git rev-parse --short HEAD`.strip
+    else
+      ENV["CRYSTAL_CONFIG_VERSION"] = version
     end
 
-    if build.with?('llvm') || Formula["llvm"].installed?
-      inreplace('bin/crystal') do |s|
-        if s =~ /export PATH="(.*)"/
-          llvm_path = Formula["llvm"].opt_prefix
-          s.gsub! /export PATH="(.*)"/, %(export PATH="#{llvm_path}/bin:#{$1}")
-        end
+    ENV["CRYSTAL_CONFIG_PATH"] = prefix/"src:libs"
+    ENV.append_path "PATH", "boot/bin"
+
+    if build.with?("release")
+      system "make", "crystal", "release=true"
+    else
+      system "make", "llvm_ext"
+      mkdir ".build"
+      system "bin/crystal", "build", "-o", ".build/crystal", "src/compiler/crystal.cr"
+    end
+
+    if build.with?("shards")
+      resource("shards").stage do
+        system buildpath/"bin/crystal", "build", "-o", buildpath/".build/shards", "src/shards.cr"
       end
     end
 
-    prefix.install Dir["*"]
-
-    # zsh_completion.install "etc/completion.zsh" => "_crystal"
+    bin.install ".build/crystal"
+    bin.install ".build/shards" if build.with?("shards")
+    prefix.install "src"
   end
 
-  def post_install
-    resource('latest').clear_cache if build.head?
+  def test
+    system "crystal", "eval", "puts 1"
   end
 end
