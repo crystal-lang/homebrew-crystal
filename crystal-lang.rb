@@ -1,4 +1,5 @@
 class CrystalLang < Formula
+  desc "Fast and statically typed, compiled language with Ruby-like syntax"
   homepage "http://crystal-lang.org/"
   url "https://github.com/manastech/crystal/archive/0.9.0.tar.gz"
   sha256 "b125e58ab88ca7a6cb654c40143b6e9f8c4fb284cbe5e4da20ae372ed9b31ba0"
@@ -14,14 +15,13 @@ class CrystalLang < Formula
     sha256 "5dd06933a24064b40a2056015184da77273be6903690ccc4702d77ad898d7d27"
   end
 
+  option "without-release", "Do not build the compiler in release mode"
+  option "without-shards", "Do not include `shards` dependency manager"
+
   depends_on "libevent"
   depends_on "libpcl"
   depends_on "bdw-gc"
   depends_on "llvm" => :build
-
-  option "without-release", "Do not build the compiler in release mode"
-  option "without-shards", "Do not include `shards` dependency manager"
-
   depends_on "libyaml" if build.with?("shards")
 
   def install
@@ -36,26 +36,26 @@ class CrystalLang < Formula
     ENV["CRYSTAL_CONFIG_PATH"] = prefix/"src:libs"
     ENV.append_path "PATH", "boot/bin"
 
-    if build.with?("release")
+    if build.with? "release"
       system "make", "crystal", "release=true"
     else
       system "make", "llvm_ext"
-      mkdir ".build"
+      (buildpath/".build").mkpath
       system "bin/crystal", "build", "-o", ".build/crystal", "src/compiler/crystal.cr"
     end
 
-    if build.with?("shards")
+    if build.with? "shards"
       resource("shards").stage do
         system buildpath/"bin/crystal", "build", "-o", buildpath/".build/shards", "src/shards.cr"
       end
+      bin.install ".build/shards"
     end
 
     bin.install ".build/crystal"
-    bin.install ".build/shards" if build.with?("shards")
     prefix.install "src"
   end
 
-  def test
-    system "crystal", "eval", "puts 1"
+  test do
+    system "#{bin}/crystal", "eval", "puts 1"
   end
 end
