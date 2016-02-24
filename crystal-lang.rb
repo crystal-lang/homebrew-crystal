@@ -1,12 +1,12 @@
 class CrystalLang < Formula
   desc "Fast and statically typed, compiled language with Ruby-like syntax"
   homepage "http://crystal-lang.org/"
-  url "https://github.com/manastech/crystal/archive/0.12.0.tar.gz"
+  url "https://github.com/crystal-lang/crystal/archive/0.12.0.tar.gz"
   sha256 "918bad9b906fe252f3f66685487892ad7c13a31135aa5874ac1e52ea399328e3"
-  head "https://github.com/manastech/crystal.git"
+  head "https://github.com/crystal-lang/crystal.git"
 
   resource "boot" do
-    url "https://github.com/manastech/crystal/releases/download/0.11.1/crystal-0.11.1-1-darwin-x86_64.tar.gz"
+    url "https://github.com/crystal-lang/crystal/releases/download/0.11.1/crystal-0.11.1-1-darwin-x86_64.tar.gz"
     version "0.11.1"
     sha256 "117af7bc7a5031ff77dba443d65e885c5f99189eac9fed7b35ca4e99f2a3b51f"
   end
