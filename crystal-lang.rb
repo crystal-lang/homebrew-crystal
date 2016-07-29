@@ -23,6 +23,7 @@ class CrystalLang < Formula
   depends_on "bdw-gc"
   depends_on "llvm" => :build
   depends_on "libyaml" if build.with?("shards")
+  depends_on "pcre"
 
   def install
     (buildpath/"boot").install resource("boot")
