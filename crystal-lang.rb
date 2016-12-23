@@ -1,18 +1,18 @@
 class CrystalLang < Formula
   desc "Fast and statically typed, compiled language with Ruby-like syntax"
   homepage "http://crystal-lang.org/"
-  url "https://github.com/crystal-lang/crystal/archive/0.20.1.tar.gz"
-  sha256 "3792856bfe768421f4f0488dd8717deb0db4c94fee7587d39174f4911ab2c01d"
+  url "https://github.com/crystal-lang/crystal/archive/0.20.3.tar.gz"
+  sha256 "5372ba2a35d885345207047a51b9389f9190fd12389847e7f7298618bcf59ad6"
   head "https://github.com/crystal-lang/crystal.git"
 
   resource "boot" do
-    url "https://github.com/crystal-lang/crystal/releases/download/0.20.0/crystal-0.20.0-1-darwin-x86_64.tar.gz"
-    version "0.20.0"
-    sha256 "4865c464d37aa4328f1f401e3a66136d8149bad51ef5ecd6fef0d032067e7fee"
+    url "https://github.com/crystal-lang/crystal/releases/download/0.20.1/crystal-0.20.1-1-darwin-x86_64.tar.gz"
+    version "0.20.1"
+    sha256 "e934d5e737949a6bce977f810d0ffdd3ddcb4b226125400c8f64f46944af56c5"
   end
 
   resource "shards" do
-    url "https://github.com/ysbaddaden/shards/archive/v0.7.1.tar.gz"
+    url "https://github.com/crystal-lang/shards/archive/v0.7.1.tar.gz"
     sha256 "31de819c66518479682ec781a39ef42c157a1a8e6e865544194534e2567cb110"
   end
 
@@ -33,7 +33,7 @@ class CrystalLang < Formula
       ENV["CRYSTAL_CONFIG_VERSION"] = version
     end
 
-    ENV["CRYSTAL_CONFIG_PATH"] = prefix/"src:lib:libs"
+    ENV["CRYSTAL_CONFIG_PATH"] = prefix/"src:lib"
     ENV.append_path "PATH", "boot/bin"
 
     if build.with? "release"
